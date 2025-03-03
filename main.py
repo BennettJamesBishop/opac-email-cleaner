@@ -1,13 +1,15 @@
 from htmlParser import get_clean_html_body
 from htmlParser import comma_to_bullets
 from apiCall import generate_link_names
+from promptArgs.monthlyEventEmail import MonthlyEventEmail
+
 if __name__ == "__main__":
     url = input("Enter a URL: ")
     html_body = get_clean_html_body(url)
     link_names = input("Enter the link names as comma seperated list: ")
     link_array = comma_to_bullets(link_names) #reconsider this
-
-    result = generate_link_names(html_body, link_array)
+    email_args = MonthlyEventEmail
+    result = generate_link_names(MonthlyEventEmail, html_body, link_array)
 
     print(result)
 

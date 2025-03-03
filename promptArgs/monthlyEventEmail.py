@@ -1,4 +1,17 @@
-ex_link_names_one = """
+from promptArgs.promptArgsClass import PromptArgs 
+
+# MonthlyEventEmail is defined below
+
+naming_conventions = """
+- "Current Month X: [Event Name]" → If in the Current Month section, with ordering based on placement.
+- "Save The Date: [Event Name]" → If it’s a special upcoming event.
+- "Footer: Opt Out" → If it’s an unsubscribe link in the footer.
+- "Footer: Manage Preferences" → If it allows email preference management.
+- "View All Button" → If it is a call-to-action button for all events.
+- "Header: Alumni Lockup" → If it is a branding-related link near the top.
+"""
+
+link_names_example_one = """
 - Count me in
 - All Gaucho Reunion - Enter to win!
 - View all events
@@ -8,7 +21,7 @@ ex_link_names_one = """
 - managing your preferences.
 """
 
-ex_generated_link_names_one = """
+generated_link_names_example_one = """
 Current Month 1: Gaucho Academy
 Save The Date: All Gaucho Reunion
 View All Button
@@ -18,15 +31,7 @@ Current Month 2: Career Network
 Footer: Manage Preferences
 """
 
-ex_link_names_two = """
-
-"""
-
-ex_generated_link_names_two = """
-
-"""
-
-ex_html_one = """
+html_example_one = """
 <body class="e2ma-design-option-backdrop e2ma-template" data-e2ma-styles="background" style="-webkit-font-smoothing: antialiased;background-repeat: repeat repeat;padding: 0;width: 100% !important;background-attachment: scroll;-moz-osx-font-smoothing: grayscale;background-position: center center;margin: 0;background-color: #f1f1f1">
 <div style="display: none !important; mso-hide:all;">Career networking, tax prep and game night: All in our January events!</div>
 <img alt="Career networking, tax prep and game night: All in our January events!" height="1" src="https://images.e2ma.net/images/spacer.gif" style="display: none !important; mso-hide:all;" width="1"/>
@@ -162,6 +167,6 @@ This email was sent to . <br/>
 <div id="e2ma-join"><a href="https://app.e2ma.net/app2/audience/signup/1869388/1811880/?v=a">Subscribe</a> to our email list.</div></body>
 """
 
-ex_html_two = """
 
-"""
+MonthlyEventEmail = PromptArgs(naming_conventions, html_example_one, link_names_example_one, generated_link_names_example_one)
+ 

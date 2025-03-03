@@ -1,32 +1,24 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
-from promptStuff import ex_link_names_one
-from promptStuff import ex_generated_link_names_one
-from promptStuff import ex_html_one
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 client = OpenAI(api_key=api_key)
 
-def generate_link_names(new_html, new_links, ex_link_names_one=ex_link_names_one, ex_generated_link_names_one=ex_generated_link_names_one, ex_html_one=ex_html_one):
+def generate_link_names(promptArgs, new_html, new_links,):
     prompt = f"""
     You are an expert at assigning meaningful names to links based on their position in HTML emails.
 
     ### Naming Conventions:
-    - "Current Month X: [Event Name]" → If in the Current Month section, with ordering based on placement.
-    - "Save The Date: [Event Name]" → If it’s a special upcoming event.
-    - "Footer: Opt Out" → If it’s an unsubscribe link in the footer.
-    - "Footer: Manage Preferences" → If it allows email preference management.
-    - "View All Button" → If it is a call-to-action button for all events.
-    - "Header: Alumni Lockup" → If it is a branding-related link near the top.
+    {promptArgs.naming_conventions}
 
     ### Example:
 
     
-    HTML: {ex_html_one}
-    Links: {ex_link_names_one}
-    Generated Names:{ex_generated_link_names_one}
+    HTML: {promptArgs.html_example_one}
+    Links: {promptArgs.link_names_example_one}
+    Generated Names:{promptArgs.generated_link_names_example_one}
 
 
 
