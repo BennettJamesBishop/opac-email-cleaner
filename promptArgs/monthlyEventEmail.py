@@ -22,13 +22,13 @@ link_names_example_one = """
 """
 
 generated_link_names_example_one = """
-Current Month 1: Gaucho Academy
-Save The Date: All Gaucho Reunion
-View All Button
-Footer: Opt Out
-Header: Alumni Lockup
-Current Month 2: Career Network
-Footer: Manage Preferences
+- Current Month 1: Gaucho Academy
+- Save The Date: All Gaucho Reunion
+- View All Button
+- Footer: Opt Out
+- Header: Alumni Lockup
+- Current Month 2: Career Network
+- Footer: Manage Preferences
 """
 
 html_example_one = """
