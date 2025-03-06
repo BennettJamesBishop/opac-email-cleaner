@@ -14,7 +14,7 @@ def get_clean_html_body(url):
             return "No body tag found."
 
         # Remove unnecessary elements
-        for tag in body(["script", "style", "meta", "noscript", "iframe", "link"]):
+        for tag in body(["script", "style", "meta", "noscript", "iframe", "link", "svg", "form", "input", "button"]):
             tag.decompose()  # Remove tag completely
         
         # Remove comments
