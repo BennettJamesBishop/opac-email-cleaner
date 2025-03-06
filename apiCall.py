@@ -8,7 +8,9 @@ client = OpenAI(api_key=api_key)
 
 def generate_link_names(promptArgs, new_html, new_links,):
     prompt = f"""
-    You are an expert at assigning meaningful names to links based on their position in HTML emails.
+    You are an expert at assigning meaningful names to links based on their position in HTML emails. 
+    I have attatched some naming convention for generating the meaningful names. I have also included an example
+    of an email's HTML, links, and the link's corresponding meaningful names.
 
     ### Naming Conventions:
     {promptArgs.naming_conventions}
@@ -20,7 +22,8 @@ def generate_link_names(promptArgs, new_html, new_links,):
     Links: {promptArgs.link_names_example_one}
     Generated Names:{promptArgs.generated_link_names_example_one}
 
-
+    Now, I am giving you a new newsletter's HTML, and the links which I need you to generate meaningful names for. Please use the 
+    naming conventions and examples attatched above in order to generate meaningful names for the links.
 
     ### New Task:
     HTML: {new_html}
