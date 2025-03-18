@@ -6,6 +6,7 @@ from promptArgs.monthlyEventEmail import MonthlyEventEmail
 from promptArgs.UCSBNewsletter import UCSBNewsletter
 from promptArgs.seniorNewsletter import SeniorNewsletter
 
+
 # Function to process input and generate meaningful link names
 def process_links():
     email_type = email_type_var.get()
@@ -19,9 +20,6 @@ def process_links():
     if not link_names:
         messagebox.showerror("Input Error", "Please enter at least one link name.")
         return
-
-    # Select the correct email type
-    email_args = UCSBNewsletter if email_type == "UCSB Newsletter" else MonthlyEventEmail
 
     # Fetch and clean HTML
     result_text.config(state=tk.NORMAL)
@@ -37,6 +35,14 @@ def process_links():
     # Process links
     link_array = [link.strip() for link in link_names.split(",")]
 
+    # Get the selected email type's argument class and instantiate it
+    email_args_class = get_selected_email_args()  # Get the class reference
+    if email_args_class:
+        email_args = email_args_class()  # Instantiate the class
+    else:
+        messagebox.showerror("Error", "Invalid email type selection.")
+        return
+
     # Call OpenAI API to generate link names
     result_text.insert(tk.END, "Generating link names...\n")
     root.update_idletasks()
@@ -50,6 +56,7 @@ def process_links():
 
     result_text.config(state=tk.DISABLED)
 
+
 # Create Tkinter Window
 root = tk.Tk()
 root.title("Link Naming App")
@@ -59,10 +66,22 @@ root.resizable(False, False)
 # Title Label
 tk.Label(root, text="Link Naming App", font=("Arial", 16, "bold")).pack(pady=10)
 
-# Email Type Selection
+# Dictionary mapping email types to their respective classes
+EMAIL_PROMPTS = {
+    "UCSB Newsletter": UCSBNewsletter,
+    "Monthly Event Newsletter": MonthlyEventEmail,
+    "Senior Newsletter": SeniorNewsletter,  # Add new prompts as needed
+}
+
+# Function to fetch the selected email type
+def get_selected_email_args():
+    return EMAIL_PROMPTS.get(email_type_var.get(), UCSBNewsletter)  # Default if not found
+
+
+# Email Type Selection (Dropdown Menu)
 tk.Label(root, text="Select Email Type:").pack(pady=5)
-email_type_var = tk.StringVar(value="UCSB Newsletter")
-email_dropdown = ttk.Combobox(root, textvariable=email_type_var, values=["UCSB Newsletter", "Monthly Event Newsletter"], state="readonly")
+email_type_var = tk.StringVar(value=list(EMAIL_PROMPTS.keys())[0])  # Default to first item
+email_dropdown = ttk.Combobox(root, textvariable=email_type_var, values=list(EMAIL_PROMPTS.keys()), state="readonly")
 email_dropdown.pack(pady=5)
 
 # URL Input
